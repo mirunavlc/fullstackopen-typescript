@@ -1,7 +1,13 @@
-type WeightStatus =
+export type WeightStatus =
   | "Low(underweight)"
   | "Normal(healthy weight)"
   | "High(overweight)";
+
+export interface Result {
+  height: number;
+  weight: number;
+  bmi: WeightStatus;
+}
 
 const compareFloats = (small: number, big: number): boolean => {
   const result =
@@ -14,7 +20,7 @@ const compareFloats = (small: number, big: number): boolean => {
   return result;
 };
 
-const calculateBmi = (height: number, weight: number): WeightStatus => {
+export const calculateBmi = (height: number, weight: number): WeightStatus => {
   const bmi = weight / Math.pow(height / 100, 2);
 
   if (compareFloats(bmi, 18.5)) return "Low(underweight)";
