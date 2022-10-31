@@ -8,7 +8,7 @@ interface Result {
   average: number;
 }
 
-const calculateExercises = (
+export const calculateExercises = (
   dailyExcerciseHours: Array<number>,
   targetHours: number
 ): Result => {

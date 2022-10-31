@@ -1,6 +1,9 @@
 import express = require("express");
 import { calculateBmi, Result } from "./bmiCalculator";
+import { calculateExercises } from "./exerciseCalculator";
 const app = express();
+import bodyParser from "body-parser";
+const jsonParser = bodyParser.json();
 
 app.get("/hello", (_req, res) => {
   res.send("Hello Full Stack!");
@@ -15,6 +18,27 @@ app.get("/bmi", (req, res) => {
     res.send(result);
   } catch (error: unknown) {
     res.send({ error: "malformatted parameters" });
+  }
+});
+
+app.post("/exercises", jsonParser, (req, res) => {
+  try {
+    /* eslint-disable */
+    const body = req.body;
+    const daily_exercises: number[] = body.daily_exercises.map((s: string) =>
+      Number(s)
+    );
+    const target = Number(body.target);
+    const result = calculateExercises(daily_exercises, target);
+    res.send(result);
+    /* eslint-enable */
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log(error.message);
+      res.send({ error: "malformatted parameters" });
+    } else {
+      res.send({ error: "parameters missing" });
+    }
   }
 });
 
