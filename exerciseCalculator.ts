@@ -42,4 +42,5 @@ const calculateExercises = (
   };
 };
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+const arr = process.argv.slice(3, process.argv.length).map((s) => Number(s));
+console.log(calculateExercises(arr, Number(process.argv[2])));
